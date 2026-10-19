@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Análise Combinatória</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Calculadora de Análise Combinatória</h1>
+    </header>
+    <main class="container">
+        <!-- Barra de Configurações -->
+        <section class="top-bar">
+            <label class="switch-label">
+                <span>Mostrar passo a passo dos cálculos</span>
+                <section class="switch">
+                    <input type="checkbox" id="togglePassos" onchange="alternarExibicaoPassos()">
+                    <span class="slider"></span>
+                </section>
+            </label>
+        </section>
+        
+        <!-- MENU -->
+        <section class="tabs">
+            <button class="tab-btn active" onclick="trocarAba(event, 'permutacoes')">1. Permutações</button>
+            <button class="tab-btn" onclick="trocarAba(event, 'arranjos')">2. Arranjos</button>
+            <button class="tab-btn" onclick="trocarAba(event, 'combinacoes')">3. Combinações</button>
+            <button class="tab-btn" onclick="trocarAba(event, 'binomio')">4. Binômio e Teoremas</button>
+        </section>
+        
+        <!-- BLOCO 1: PERMUTAÇÕES -->
+        <section id="permutacoes" class="tab-content active">
+            <section class="card">
+                <h3>Permutação Simples</h3>
+                <section class="formula">Fórmula: P(n) = n!</section>
+                <section class="form-group">
+                    <input type="number" id="p_simples_n" placeholder="n" min="0">
+                    <button class="calc-btn" onclick="calcPermSimples()">Calcular</button>
+                </section>
+                <section class="resultado" id="res_p_simples">Resultado: -</section>
+                <section class="passo-box" id="passo_p_simples"></section>
+            </section>
+        
+            <section class="card">
+                <h3>Permutação com Repetição</h3>
+                <section class="formula">Fórmula: P_n^(a,b,...) = n! / (a! · b! · ...)</section>
+                <section class="form-group">
+                    <input type="number" id="p_rep_n" placeholder="Total (n)" min="0">
+                    <input type="text" id="p_rep_list" placeholder="ex: 2, 3" style="width: 200px;">
+                    <button class="calc-btn" onclick="calcPermRep()">Calcular</button>
+                </section>
+                <section class="resultado" id="res_p_rep">Resultado: -</section>
+                <section class="passo-box" id="passo_p_rep"></section>
+            </section>
+        
+            <section class="card">
+                <h3>Permutação Circular</h3>
+                <section class="formula">Fórmula: PC(n) = (n - 1)!</section>
+                <section class="form-group">
+                    <input type="number" id="p_circ_n" placeholder="n" min="1">
+                    <button class="calc-btn" onclick="calcPermCirc()">Calcular</button>
+                </section>
+                <section class="resultado" id="res_p_circ">Resultado: -</section>
+                <section class="passo-box" id="passo_p_circ"></section>
+            </section>
+        
+            <section class="card">
+                <h3>Permutação Caótica (Desarranjos)</h3>
+                <section class="formula">Fórmula: D(n) = n! · ∑ [(-1)^k / k!] para k de 0 até n</section>
+                <section class="form-group">
+                    <input type="number" id="p_caot_n" placeholder="n" min="0">
+                    <button class="calc-btn" onclick="calcPermCaotica()">Calcular</button>
+                </section>
+                <section class="resultado" id="res_p_caot">Resultado: -</section>
+                <section class="passo-box" id="passo_p_caot"></section>
+            </section>
+        </section>
+        
+        <!-- BLOCO 2: ARRANJOS -->
+        <section id="arranjos" class="tab-content">
+            <section class="card">
+                <h3>Arranjo Simples</h3>
+                <section class="formula">Fórmula: A(n, p) = n! / (n - p)!</section>
+                <section class="form-group">
+                    <input type="number" id="a_simp_n" placeholder="n" min="0">
+                    <input type="number" id="a_simp_p" placeholder="p" min="0">
+                    <button class="calc-btn" onclick="calcArranjoSimp()">Calcular</button>
+                </section>
+                <section class="resultado" id="res_a_simp">Resultado: -</section>
+                <section class="passo-box" id="passo_a_simp"></section>
+            </section>
+        
+            <section class="card">
+                <h3>Arranjo com Repetição</h3>
+                <section class="formula">Fórmula: AR(n, p) = n^p</section>
+                <section class="form-group">
+                    <input type="number" id="a_rep_n" placeholder="n" min="0">
+                    <input type="number" id="a_rep_p" placeholder="p" min="0">
+                    <button class="calc-btn" onclick="calcArranjoRep()">Calcular</button>
+                </section>
+                <section class="resultado" id="res_a_rep">Resultado: -</section>
+                <section class="passo-box" id="passo_a_rep"></section>
+            </section>
+        </section>
+        
+        <!-- BLOCO 3: COMBINAÇÕES -->
+        <section id="combinacoes" class="tab-content">
+            <section class="card">
+                <h3>Combinação Simples</h3>
+                <section class="formula">Fórmula: C(n, p) = n! / [p! · (n - p)!]</section>
+                <section class="form-group">
+                    <input type="number" id="c_simp_n" placeholder="n" min="0">
+                    <input type="number" id="c_simp_p" placeholder="p" min="0">
+                    <button class="calc-btn" onclick="calcCombSimp()">Calcular</button>
+                </section>
+                <section class="resultado" id="res_c_simp">Resultado: -</section>
+                <section class="passo-box" id="passo_c_simp"></section>
+            </section>
+        
+            <section class="card">
+                <h3>Combinação com Repetição</h3>
+                <section class="formula">Fórmula: CR(n, p) = C(n + p - 1, p)</section>
+                <section class="form-group">
+                    <input type="number" id="c_rep_n" placeholder="n" min="0">
+                    <input type="number" id="c_rep_p" placeholder="p" min="0">
+                    <button class="calc-btn" onclick="calcCombRep()">Calcular</button>
+                </section>
+                <section class="resultado" id="res_c_rep">Resultado: -</section>
+                <section class="passo-box" id="passo_c_rep"></section>
+            </section>
+        </section>
+        
+        <!-- BLOCO 4: BINÔMIO E TEOREMAS -->
+        <section id="binomio" class="tab-content">
+            <section class="card">
+                <h3>Binômio de Newton (Expansão)</h3>
+                <section class="formula">Expansão de (x + y)^n</section>
+                <section class="form-group">
+                    <input type="number" id="bn_n" placeholder="Expoente n" min="0">
+                    <button class="calc-btn" onclick="calcBinomio()">Expandir</button>
+                </section>
+                <section class="resultado" id="res_bn">Resultado: -</section>
+                <section class="passo-box" id="passo_bn"></section>
+            </section>
+        
+            <section class="card">
+                <h3>Termo Geral do Binômio</h3>
+                <section class="formula">Fórmula: T_(k+1) = C(n, k) · x^(n-k) · y^k</section>
+                <section class="form-group">
+                    <input type="number" id="tg_n" placeholder="n" min="0">
+                    <input type="number" id="tg_pos" placeholder="Posição (1º, 2º...)" min="1">
+                    <button class="calc-btn" onclick="calcTermoGeral()">Encontrar</button>
+                </section>
+                <section class="resultado" id="res_tg">Resultado: -</section>
+                <section class="passo-box" id="passo_tg"></section>
+            </section>
+        
+            <section class="card">
+                <h3>Relação de Stifel</h3>
+                <section class="formula">Propriedade: C(n-1, p-1) + C(n-1, p) = C(n, p)</section>
+                <section class="form-group">
+                    <input type="number" id="stifel_n" placeholder="n" min="1">
+                    <input type="number" id="stifel_p" placeholder="p" min="1">
+                    <button class="calc-btn" onclick="calcStifel()">Demonstrar</button>
+                </section>
+                <section class="resultado" id="res_stifel">Resultado: -</section>
+                <section class="passo-box" id="passo_stifel"></section>
+            </section>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
